@@ -17,4 +17,9 @@ public class HelloController {
     public ModelAndView hello(String name){
         return new ModelAndView("hello","name",name);
     }
+
+    @GetMapping("/")
+    public String index(){
+        return "index";
+    }
 }
