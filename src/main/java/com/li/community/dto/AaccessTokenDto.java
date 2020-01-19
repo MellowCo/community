@@ -1,18 +1,18 @@
-package com.li.community.entity;
+package com.li.community.dto;
 
 /**
  * @Description:
  * @Author: li
  * @Create: 2020-01-12 16:52
  */
-public class GithubAaccessToken {
+public class AaccessTokenDto {
     private String client_id;
     private String client_secret;
     private String code;
     private String redirect_uri;
     private String state;
 
-    public GithubAaccessToken(String client_id, String client_secret, String code, String redirect_uri, String state) {
+    public AaccessTokenDto(String client_id, String client_secret, String code, String redirect_uri, String state) {
         this.client_id = client_id;
         this.client_secret = client_secret;
         this.code = code;

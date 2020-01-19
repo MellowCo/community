@@ -13,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HelloController {
 
+    // @Autowired
+    // UserMapper mapper;
+
     @GetMapping("/hello")
     public ModelAndView hello(String name){
         return new ModelAndView("hello","name",name);
@@ -22,4 +25,10 @@ public class HelloController {
     public String index(){
         return "index";
     }
+
+    // @GetMapping("/all")
+    // String allUser(){
+    //     System.out.println(mapper.all());
+    //     return "index";
+    // }
 }

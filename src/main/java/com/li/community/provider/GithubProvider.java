@@ -1,8 +1,8 @@
 package com.li.community.provider;
 
 import com.alibaba.fastjson.JSON;
-import com.li.community.entity.GithubAaccessToken;
-import com.li.community.entity.GithubUser;
+import com.li.community.dto.AaccessTokenDto;
+import com.li.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
 @Component
 public class GithubProvider {
 
-    public String getAccessToken(GithubAaccessToken token) {
+    public String getAccessToken(AaccessTokenDto token) {
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
