@@ -1,5 +1,6 @@
 package com.li.community.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.li.community.entity.User;
 
 /**
@@ -8,7 +9,7 @@ import com.li.community.entity.User;
  * @Create: 2020-01-14 15:29
  */
 
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
 
-    int insertUser(User user);
+    //User findByToken(@Param("token") String value);
 }

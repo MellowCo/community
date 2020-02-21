@@ -22,7 +22,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Li社区</a>
+            <a class="navbar-brand" href="#">Li社区</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -36,10 +36,6 @@
                 <!--session中user为null，登录显示-->
                 <li th:if="${session.user == null}">
                     <a href="https://github.com/login/oauth/authorize?client_id=2d78aa3a5ae6ab3cb770&redirect_uri=http://localhost:8080/callback&state=1">登录</a>
-                </li>
-
-                <li th:if="${session.user != null}">
-                    <a href="/publish">发布</a>
                 </li>
 
                 <!--登录成功，获取session中的user-->
@@ -57,52 +53,47 @@
     </div>
 </nav>
 
-<!--发现-->
+<!--发起问题-->
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-            <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
             <hr>
-            <!--问题列表-->
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded media-img-size"
-                             src="https://avatars2.githubusercontent.com/u/47939250?v=4" alt="...">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">我的问题</h4>
-                    <span class="text-desc">3 个回复 • 65 次浏览 • 2020-01-11 09:36</span>
-                </div>
-            </div>
 
-            <div th:each="list : ${list}" class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded media-img-size" th:src="${list.user.avatarUrl}"
-                             src="https://avatars2.githubusercontent.com/u/47939250?v=4" alt="...">
-                    </a>
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">问题标题(简单扼要)</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="问题标题">
                 </div>
 
-                <div class="media-body">
-                    <h4 class="media-heading" th:text="${list.question.title}"></h4>
-                     <span class="text-desc" th:text="${list.question.commentCount} + '个回复• ' + ${list.question.viewCount} +'次浏览 • ' +${#calendars.format(list.question.gmtCreate,'yyyy-MM-dd HH:mm')} "></span>
+                <div class="form-group">
+                    <label for="description">问题补充</label>
+                    <textarea class="form-control" rows="10" name="description" id="description"></textarea>
                 </div>
 
-            </div>
-            <!--问题列表-->
+                <div class="form-group">
+                    <label for="tag">添加标签</label>
+                    <input type="text" class="form-control" name="tag" id="tag" placeholder="输入标签">
+                </div>
 
+                <div class="alert alert-danger" role="alert" th:if="${error} != null">
+                    [[${error}]]
+                </div>
+
+                <button type="submit" class="btn btn-success publish-btn">发布</button>
+            </form>
         </div>
 
-
-        <div class=" col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            <h3>热点</h3>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <h3>问题发起指南</h3>
+            • 问题标题: 请用精简的语言描述您发布的问题，不超过25字 <br>
+            • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<br>
+            • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br>
         </div>
     </div>
 
 </div>
-<!--发现-->
+<!--发起问题-->
 
 
 </body>

@@ -10,7 +10,5 @@ spring:
     password: li1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-mybatis:
-#  config-location: classpath:/mybatis/config/MapperConfig.xml
+mybatis-plus:
   mapper-locations: classpath:/mybatis/mapper/*.xml
-  type-aliases-package: com.li.community.entity

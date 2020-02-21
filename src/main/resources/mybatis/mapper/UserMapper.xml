@@ -5,7 +5,11 @@
 <mapper namespace="com.li.community.mapper.UserMapper">
 
     <insert id="insertUser" parameterType="com.li.community.entity.User">
-        insert into user(account_id,name,token,gmt_create,gmt_modified) values(#{account_id},#{name},#{token},#{gmt_create},#{gmt_modified})
+        insert into user(account_id,name,token,gmt_create,gmt_modified,avatar_url) values(#{account_id},#{name},#{token},#{gmt_create},#{gmt_modified},#{avatarUrl})
     </insert>
+
+    <select id="findByToken" resultType="com.li.community.entity.User">
+        select * from user where token = #{token}
+    </select>
 
 </mapper>

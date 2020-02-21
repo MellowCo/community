@@ -1,0 +1,26 @@
+body{
+    background-color: #efefef;
+}
+
+.main {
+    margin: 20px;
+    background-color: white;
+}
+
+/*发布问题按钮样式*/
+.publish-btn{
+    float: right;
+    margin-bottom: 20px;
+}
+
+/*问题列表 点赞字体大小*/
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+/*问题列表用户头像大小*/
+.media-img-size{
+    width: 40px;
+    height: 40px;
+}
