@@ -12,29 +12,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Description:
+ * @Description: 发布问题的controller
  * @Author: li
  * @Create: 2020-01-19 16:07
  */
 @Controller
-public class PublishController {
+public class ReleaseController {
 
     @Autowired
     private QuestionMapper mapper;
 
-    @GetMapping("/publish")
+    @GetMapping("/release")
     public String publish(){
-        return "publish";
+        return "release";
     }
 
-    @PostMapping("/publish")
+    @PostMapping("/release")
     public String doPulish(Question question, HttpServletRequest request, Model model){
 
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null){
             model.addAttribute("error", "用户未登录");
-            return "publish";
+            return "release";
         }
 
         question.setCreator(user.getId());

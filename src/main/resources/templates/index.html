@@ -40,7 +40,7 @@
                           th:text="${list.question.commentCount} + '个回复• ' + ${list.question.viewCount} +'次浏览 • ' +${#calendars.format(list.question.gmtCreate,'yyyy-MM-dd HH:mm')} "></span>
                 </div>
             </div>
-            <!--分页-->
+            <!--分页start-->
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${page.hasPrevious()}">
@@ -48,6 +48,7 @@
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
+                    <!--遍历页码 通过#numbers.sequence(begin, end)-->
                     <li th:each="pageNo : ${#numbers.sequence(begin, end)}"
                         th:class="${pageNo == page.getCurrent()} ? 'active'">
                         <a th:href="@{/questionPage/{pageNo}/{size}(pageNo=${pageNo},size=${page.getSize()})}" th:text="${pageNo}"
@@ -60,7 +61,7 @@
                     </li>
                 </ul>
             </nav>
-            <!--分页-->
+            <!--分页end-->
 
             <!--问题列表-->
 
