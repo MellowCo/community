@@ -1,61 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/community.css">
-</head>
+<div th:replace="commons/commons.html :: head"></div>
 <body>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Li社区</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <!--session中user为null，登录显示-->
-                <li th:if="${session.user == null}">
-                    <a href="https://github.com/login/oauth/authorize?client_id=2d78aa3a5ae6ab3cb770&redirect_uri=http://localhost:8080/callback&state=1">登录</a>
-                </li>
-
-                <li th:if="${session.user != null}">
-                    <a href="/publish">发布</a>
-                </li>
-
-                <!--登录成功，获取session中的user-->
-                <li class="dropdown" th:if="${session.user != null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" th:text="${session.user.name}"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">信息中心</a></li>
-                        <li><a href="#">个人信息</a></li>
-                        <li><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="commons/commons.html :: nav_bar"></div>
 
 <!--发现-->
 <div class="container-fluid main">
@@ -64,20 +13,20 @@
             <h2><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>发现</h2>
             <hr>
             <!--问题列表-->
-            <div class="media">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded media-img-size"
-                             src="https://avatars2.githubusercontent.com/u/47939250?v=4" alt="...">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4 class="media-heading">我的问题</h4>
-                    <span class="text-desc">3 个回复 • 65 次浏览 • 2020-01-11 09:36</span>
-                </div>
-            </div>
+            <!--            <div class="media">-->
+            <!--                <div class="media-left">-->
+            <!--                    <a href="#">-->
+            <!--                        <img class="media-object img-rounded media-img-size"-->
+            <!--                             src="https://avatars2.githubusercontent.com/u/47939250?v=4" alt="...">-->
+            <!--                    </a>-->
+            <!--                </div>-->
+            <!--                <div class="media-body">-->
+            <!--                    <h4 class="media-heading">我的问题</h4>-->
+            <!--                    <span class="text-desc">3 个回复 • 65 次浏览 • 2020-01-11 09:36</span>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
-            <div th:each="list : ${list}" class="media">
+            <div th:each="list : ${page.getRecords()}" class="media">
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded media-img-size" th:src="${list.user.avatarUrl}"
@@ -87,14 +36,35 @@
 
                 <div class="media-body">
                     <h4 class="media-heading" th:text="${list.question.title}"></h4>
-                     <span class="text-desc" th:text="${list.question.commentCount} + '个回复• ' + ${list.question.viewCount} +'次浏览 • ' +${#calendars.format(list.question.gmtCreate,'yyyy-MM-dd HH:mm')} "></span>
+                    <span class="text-desc"
+                          th:text="${list.question.commentCount} + '个回复• ' + ${list.question.viewCount} +'次浏览 • ' +${#calendars.format(list.question.gmtCreate,'yyyy-MM-dd HH:mm')} "></span>
                 </div>
-
             </div>
+            <!--分页-->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li th:if="${page.hasPrevious()}">
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="pageNo : ${#numbers.sequence(begin, end)}"
+                        th:class="${pageNo == page.getCurrent()} ? 'active'">
+                        <a th:href="@{/questionPage/{pageNo}/{size}(pageNo=${pageNo},size=${page.getSize()})}" th:text="${pageNo}"
+                        ></a>
+                    </li>
+                    <li th:if="${page.hasNext()}">
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!--分页-->
+
             <!--问题列表-->
 
         </div>
-
 
         <div class=" col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <h3>热点</h3>

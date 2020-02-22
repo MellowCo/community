@@ -13,5 +13,4 @@ import lombok.Data;
 public class QuestionDto {
     private Question question;
     private User user;
-
 }

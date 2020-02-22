@@ -30,8 +30,8 @@
     </resultMap>
 
     <!--查询所有问题和其发起者的信息-->
-    <select id="list" resultMap="questionDtoMap">
-        select * from question q inner join user u on q.creator=u.id
+    <select id="questionPage" resultMap="questionDtoMap">
+        select * from question q inner join user u on q.creator=u.id ${ew.customSqlSegment}
     </select>
 
 </mapper>

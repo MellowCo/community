@@ -12,3 +12,10 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:/mybatis/mapper/*.xml
+
+logging:
+  level:
+    root: warn
+    com.li.community.mapper: trace
+  pattern:
+    console: '%p%m%n'

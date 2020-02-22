@@ -40,6 +40,7 @@ public class PublishController {
         question.setCreator(user.getId());
         question.setGmtCreate(System.currentTimeMillis());
         question.setGmtModified(question.getGmtCreate());
+
         mapper.insert(question);
         //mapper.insertQuestion(question);
 
