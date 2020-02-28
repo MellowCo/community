@@ -1,6 +1,8 @@
 package com.li.community.controller;
 
 import com.li.community.dto.QuestionDto;
+import com.li.community.exception.CustomizeException;
+import com.li.community.exception.ExceptionEnum;
 import com.li.community.service.impl.QuestionDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,12 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String getQuestion(@PathVariable(name="id") Long id, Model model) {
         QuestionDto questionDto = questionService.questionById(id);
+
+        //未找到文章 抛出异常
+        if (questionDto == null) {
+            throw new CustomizeException(ExceptionEnum.QUESTION_NOT_FOUND);
+        }
+
         model.addAttribute("questionDto", questionDto);
         return "question";
     }
