@@ -17,5 +17,6 @@ logging:
   level:
     root: warn
     com.li.community.mapper: trace
+    com.li.community.config.shiro.UserRealm : trace
   pattern:
     console: '%p%m%n'

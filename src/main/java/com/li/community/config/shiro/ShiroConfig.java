@@ -1,7 +1,6 @@
-package com.li.community.config;
+package com.li.community.config.shiro;
 
-import com.li.community.entity.UserRealm;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -36,10 +35,10 @@ public class ShiroConfig {
     }
 
     @Bean
-    public UserRealm userRealm() {
+    public UserRealm userRealm(RetryLimitHashedCredentialsMatcher retryLimitHashedCredentialsMatcher) {
         UserRealm realm = new UserRealm();
         //设置加密
-        realm.setCredentialsMatcher(hashedCredentialsMatcher());
+        realm.setCredentialsMatcher(retryLimitHashedCredentialsMatcher);
         return realm;
     }
 
@@ -62,10 +61,13 @@ public class ShiroConfig {
         map.put("/js/**", "anon");
         map.put("/css/**", "anon");
         map.put("/fonts/**", "anon");
+        map.put("/callback", "anon");
 
         map.put("/questionPage/**", "anon");
         map.put("/logout", "logout");
-        map.put("/**", "authc");
+
+        map.put("/**", "user");
+
         //设置权限过滤器
         factoryBean.setFilterChainDefinitionMap(map);
 
@@ -75,11 +77,11 @@ public class ShiroConfig {
     }
 
     /*
-     * md5加密
+     * md5加密 使用自定义的 实现免密登录
      */
     @Bean
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
+    public RetryLimitHashedCredentialsMatcher hashedCredentialsMatcher() {
+        RetryLimitHashedCredentialsMatcher matcher = new RetryLimitHashedCredentialsMatcher();
         matcher.setHashIterations(1024);
         matcher.setHashAlgorithmName("MD5");
         return matcher;
@@ -109,6 +111,14 @@ public class ShiroConfig {
         //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
         cookieRememberMeManager.setCipherKey(Base64.decode("2AvVhdsgUs0FSA3SDFAdag=="));
         return cookieRememberMeManager;
+    }
+
+    /**
+     * 配置ShiroDialect，用于thymeleaf和shiro标签配合使用
+     */
+    @Bean
+    public ShiroDialect getShiroDialect(){
+        return new ShiroDialect();
     }
 }
 

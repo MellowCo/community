@@ -3,6 +3,8 @@ package com.li.community.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Description:
  * @Author: li
@@ -10,16 +12,16 @@ import lombok.Data;
  */
 @Data
 @TableName("user")
-public class User {
+public class User implements Serializable {
     private long id;
-    private String account_id;
+    private String accountId;
     private String name;
     private String token;
     //头像
     private String avatarUrl;
     //创建时间戳
-    private long gmt_create;
+    private long gmtCreate;
     //销毁时间戳
-    private long gmt_modified;
+    private long gmtModified;
 
 }

@@ -20,12 +20,12 @@
 
         <association property="user" javaType="com.li.community.entity.User">
             <id property="id" column="id"></id>
-            <result property="account_id" column="account_id"></result>
+            <result property="accountId" column="account_id"></result>
             <result property="name" column="name"></result>
             <result property="token" column="token"></result>
             <result property="avatarUrl" column="avatar_url"></result>
-            <result property="gmt_create" column="gmt_create"></result>
-            <result property="gmt_modified" column="gmt_modified"></result>
+            <result property="gmtCreate" column="gmt_create"></result>
+            <result property="gmtModified" column="gmt_modified"></result>
         </association>
     </resultMap>
 
@@ -33,5 +33,11 @@
     <select id="questionPage" resultMap="questionDtoMap">
         select * from question q inner join user u on q.creator=u.id ${ew.customSqlSegment}
     </select>
+
+    <!--查询单个问题的信息-->
+    <select id="questionById" resultMap="questionDtoMap">
+        select * from question q inner join user u on q.creator=u.id ${ew.customSqlSegment}
+    </select>
+
 
 </mapper>

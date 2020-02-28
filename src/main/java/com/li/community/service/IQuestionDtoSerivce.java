@@ -8,5 +8,5 @@ import com.li.community.dto.QuestionDto;
  * @Author: li
  * @Create: 2020-02-21 15:35
  */
-public interface IQuestionSerivce extends IService<QuestionDto> {
+public interface IQuestionDtoSerivce extends IService<QuestionDto> {
 }

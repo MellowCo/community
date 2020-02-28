@@ -15,4 +15,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface QuestionDtoMapper extends BaseMapper<QuestionDto> {
     IPage<QuestionDto> questionPage(Page<QuestionDto> page, @Param(Constants.WRAPPER) Wrapper<QuestionDto> queryWrapper);
+
+    QuestionDto questionById(@Param(Constants.WRAPPER) Wrapper<QuestionDto> queryWrapper);
 }

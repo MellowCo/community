@@ -35,16 +35,18 @@
                 </div>
 
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${list.question.title}"></h4>
+                    <h4 class="media-heading">
+                        <a th:href="@{/question/{id}(id=${list.question.getId()})}" th:text="${list.question.title}"></a>
+                    </h4>
                     <span class="text-desc"
                           th:text="${list.question.commentCount} + '个回复• ' + ${list.question.viewCount} +'次浏览 • ' +${#calendars.format(list.question.gmtCreate,'yyyy-MM-dd HH:mm')} "></span>
                 </div>
             </div>
             <!--分页start-->
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" th:if="${page.getTotal() != 0}">
                 <ul class="pagination">
                     <li th:if="${page.hasPrevious()}">
-                        <a href="#" aria-label="Previous">
+                        <a th:href="@{/questionPage/{pageNo}/{size}(pageNo=1,size=${page.getSize()})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -55,7 +57,7 @@
                         ></a>
                     </li>
                     <li th:if="${page.hasNext()}">
-                        <a href="#" aria-label="Next">
+                        <a th:href="@{/questionPage/{pageNo}/{size}(pageNo=${page.getPages()},size=${page.getSize()})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
